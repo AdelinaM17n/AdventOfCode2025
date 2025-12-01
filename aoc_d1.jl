@@ -1,18 +1,17 @@
 input = read("inputs/d1.txt", String)
 
 function calculate(part2)
-    zero_count = 0
-    dial_position = 50
+    zeroCount = 0
+    dialPosition = 50
 
     for line in eachsplit(strip(input), "\n")
         dialTurnDir = line[1]
         turnNum = parse(Int, SubString(line, 2))
-        startingPos = copy(dial_position)
+        startingPos = copy(dialPosition)
 
         if(dialTurnDir == 'R')
-            wouldBeCount = dial_position + turnNum
-            dial_position = wouldBeCount % 100
-            dialZero = (dial_position == 0) 
+            wouldBeCount = dialPosition + turnNum
+            dialPosition = wouldBeCount % 100
 
             if(part2)
                 fullRotations = div(turnNum, 100, RoundDown)
@@ -20,23 +19,23 @@ function calculate(part2)
                 distanceToZero = 100 - startingPos
 
                 if(fullRotations > 0)
-                    zero_count += fullRotations
+                    zeroCount += fullRotations
                 end
+                
                 if(minorRotation >= distanceToZero)
-                    zero_count += 1
+                    zeroCount += 1
                 end 
             else 
-                zero_count += 1*dialZero
+                zeroCount += 1*(dialPosition == 0)
             end
 
             #print("R$turnNum,$wouldBeCount, $dial_position, $zero_count \n")
         else
-            wouldBeCount = dial_position - turnNum
-            dial_position = wouldBeCount % 100
-            if(dial_position < 0)
-                dial_position += 100    
+            wouldBeCount = dialPosition - turnNum
+            dialPosition = wouldBeCount % 100
+            if(dialPosition < 0)
+                dialPosition += 100    
             end
-            dialZero = (dial_position == 0) 
 
             if(part2)
                 fullRotations = div(turnNum, 100, RoundDown)
@@ -44,19 +43,20 @@ function calculate(part2)
                 distanceToZero = startingPos
 
                 if(fullRotations > 0)
-                    zero_count += fullRotations
+                    zeroCount += fullRotations
                 end
+
                 if(minorRotation >= distanceToZero && distanceToZero != 0)
-                    zero_count += 1
+                    zeroCount += 1
                 end 
             else 
-                zero_count += 1*dialZero
+                zeroCount += 1*(dialPosition == 0) 
             end
 
             #print("L$turnNum,$wouldBeCount, $dial_position, $zero_count \n")
         end
     end
-    return zero_count
+    return zeroCount
 end
 
 println("Part 1 : ", calculate(false))
