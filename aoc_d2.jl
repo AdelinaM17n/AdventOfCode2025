@@ -3,11 +3,11 @@ input = read("inputs/d2.txt", String)
 function isInvalid(str)
     strLength = length(str)
 
-    if(strLength % 2 == 0)
-        halfLength = div(strLength,2)
-        firstHalf = strip(first(str,halfLength))
-        secondHalf = strip(last(str,halfLength))
-        if(firstHalf == secondHalf)
+    if (strLength % 2 == 0)
+        halfLength = div(strLength, 2)
+        firstHalf = strip(first(str, halfLength))
+        secondHalf = strip(last(str, halfLength))
+        if (firstHalf == secondHalf)
             return true
         end
     end

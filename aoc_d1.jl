@@ -9,48 +9,48 @@ function calculate(part2)
         turnNum = parse(Int, SubString(line, 2))
         startingPos = copy(dialPosition)
 
-        if(dialTurnDir == 'R')
+        if (dialTurnDir == 'R')
             wouldBeCount = dialPosition + turnNum
             dialPosition = wouldBeCount % 100
 
-            if(part2)
+            if (part2)
                 fullRotations = div(turnNum, 100, RoundDown)
                 minorRotation = (turnNum % 100)
                 distanceToZero = 100 - startingPos
 
-                if(fullRotations > 0)
+                if (fullRotations > 0)
                     zeroCount += fullRotations
                 end
-                
-                if(minorRotation >= distanceToZero)
+
+                if (minorRotation >= distanceToZero)
                     zeroCount += 1
-                end 
-            else 
-                zeroCount += 1*(dialPosition == 0)
+                end
+            else
+                zeroCount += 1 * (dialPosition == 0)
             end
 
             #print("R$turnNum,$wouldBeCount, $dial_position, $zero_count \n")
         else
             wouldBeCount = dialPosition - turnNum
             dialPosition = wouldBeCount % 100
-            if(dialPosition < 0)
-                dialPosition += 100    
+            if (dialPosition < 0)
+                dialPosition += 100
             end
 
-            if(part2)
+            if (part2)
                 fullRotations = div(turnNum, 100, RoundDown)
                 minorRotation = (turnNum % 100)
                 distanceToZero = startingPos
 
-                if(fullRotations > 0)
+                if (fullRotations > 0)
                     zeroCount += fullRotations
                 end
 
-                if(minorRotation >= distanceToZero && distanceToZero != 0)
+                if (minorRotation >= distanceToZero && distanceToZero != 0)
                     zeroCount += 1
-                end 
-            else 
-                zeroCount += 1*(dialPosition == 0) 
+                end
+            else
+                zeroCount += 1 * (dialPosition == 0)
             end
 
             #print("L$turnNum,$wouldBeCount, $dial_position, $zero_count \n")
