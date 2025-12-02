@@ -1,5 +1,4 @@
 input = read("inputs/d2.txt", String)
-idList = Array{Int}(undef, 0)
 
 function isInvalid(str)
     strLength = length(str)
@@ -23,7 +22,6 @@ function isInvalid2(str)
         if (strLength % i == 0)
             repCount = div(strLength, i)
             if (repeat(SubString(str, 1, i), repCount) == str)
-                println(repeat(SubString(str, 1, i), repCount), " - ", str)
                 return true
             end
         end
@@ -32,17 +30,25 @@ function isInvalid2(str)
     return false
 end
 
-for rangeVal in eachsplit(strip(input), ",")
-    splitRange = split(strip(rangeVal), "-")
-    rangeStart = parse(Int,strip(splitRange[1]))
-    rangeEnd = parse(Int,strip(splitRange[2]))
+function getResult(part2)
+    idList = Array{Int}(undef, 0)
 
-    for i in rangeStart:rangeEnd
-        stringRep = string(i)
-        if(isInvalid2(stringRep))
-            append!(idList, i)
+    for rangeVal in eachsplit(strip(input), ",")
+        splitRange = split(strip(rangeVal), "-")
+        rangeStart = parse(Int, strip(splitRange[1]))
+        rangeEnd = parse(Int, strip(splitRange[2]))
+
+        for i in rangeStart:rangeEnd
+            stringRep = string(i)
+            if (part2 ? isInvalid2(stringRep) : isInvalid(stringRep))
+                append!(idList, i)
+            end
         end
     end
+
+    return reduce(+, idList)
 end
 
-print(reduce(+, idList))
+
+println("Part 1 :", getResult(false))
+print("Part 2 :", getResult(true))
