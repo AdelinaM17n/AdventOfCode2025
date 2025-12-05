@@ -2,6 +2,7 @@ input = read("inputs/d5.txt", String)
 
 ranges = UnitRange[]
 itemIds = Int[]
+allFreshIds = Int[]
 
 function extractStuff(stringPart)
     foreach(
@@ -26,4 +27,12 @@ function extractStuff(stringPart)
 end
 
 foreach(stringPart -> extractStuff(strip(stringPart)), collect(split(strip(input), " ")))
-println(length(findall(id -> any(range -> id in range, ranges), itemIds)))
+println("Part 1 : ", length(findall(id -> any(range -> id in range, ranges), itemIds)))
+
+# This doesn't work because of the memory shortage :(
+# foreach(range -> append!(allFreshIds, collect(range)), ranges)
+# println("Part 2 : ",length(unique(allFreshIds)))
+
+
+
+
